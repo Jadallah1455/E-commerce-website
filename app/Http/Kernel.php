@@ -2,11 +2,13 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
     /**
+     *  هادا الملف هوا المسؤول عن تسجيل ملفات الميدل وير وفيها ثلاث انواع للتسجيل او التشغيل
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
@@ -21,6 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // CheckUser::class
     ];
 
     /**
@@ -64,5 +67,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'check' => CheckUser::class
     ];
 }
