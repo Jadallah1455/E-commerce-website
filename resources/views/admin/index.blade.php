@@ -9,7 +9,7 @@
 
 @endsection
 
-
+{{-- jad --}}
 @section('styles')
 
 @if(app()->currentLocale() == 'ar')
