@@ -17,10 +17,20 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('adminassets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     @yield('styles')
+
+    <style>
+        .table th , .table td{
+            vertical-align: middle
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -30,7 +40,7 @@
 
         <!-- Sidebar -->
 
-        <ul class="navbar-nav bg-gradient-primary{{-- dark --}} sidebar sidebar-dark accordion"
+        <ul class="navbar-nav bg-gradient-dark{{-- primary dark --}} sidebar sidebar-dark accordion"
             id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -49,7 +59,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>{{__('admin.dashboard')}}</span></a>
             </li>
 
             <!-- Divider -->
@@ -60,13 +70,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
                     aria-expanded="true" aria-controls="collapseCategory">
                     <i class="fas fa-fw fa-tags"></i>
-                    <span>Categories</span>
+                    <span>{{__('admin.categories')}}</span>
                 </a>
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All Categories</a>
-                        <a class="collapse-item" href="cards.html">Add new</a>
+                        <a class="collapse-item" href="{{route('admin.categories.index')}}">{{__('admin.all_categories')}}</a>
+                        <a class="collapse-item" href="{{route('admin.categories.create')}}">{{__('admin.add_new')}}</a>
                     </div>
                 </div>
             </li>
@@ -79,12 +89,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
                     aria-expanded="true" aria-controls="collapseProduct">
                     <i class="fas fa-fw fa-heart"></i>
-                    <span>Products</span>
+                    <span>{{__('admin.products')}}</span>
                 </a>
                 <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All Products</a>
-                        <a class="collapse-item" href="cards.html">Add new</a>
+                        <a class="collapse-item" href="buttons.html">{{__('admin.all_products')}}</a>
+                        <a class="collapse-item" href="cards.html">{{__('admin.add_new')}}</a>
                     </div>
                 </div>
             </li>
@@ -96,7 +106,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-star"></i>
-                    <span>Reviews</span></a>
+                    <span>{{__('admin.reviews')}}</span></a>
             </li>
 
 
@@ -107,7 +117,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-shopping-cart"></i>
-                    <span>Orders</span></a>
+                    <span>{{trans('admin.orders')}}</span></a>
             </li>
 
 
@@ -118,7 +128,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-money-bill"></i>
-                    <span>Payments</span></a>
+                    <span>{{__('admin.payments')}}</span></a>
             </li>
 
 
@@ -129,7 +139,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Customers</span></a>
+                    <span>{{__('admin.customers')}}</span></a>
             </li>
 
 
@@ -160,6 +170,27 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>{{__('admin.languages')}}</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+
+                                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+
+                                    <a class="dropdown-item"  rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        {{ $properties['native'] }}
+                                    </a>
+
+                       -        @endforeach
+                            </div>
+
+                        </li>
+
 
 
                         <!-- Nav Item - Alerts -->
@@ -239,7 +270,7 @@
 
                                 href="{{route('logout')}}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    {{__('admin.logout')}}
                                 </a>
 
                                 <form  id="Logout_form" action="{{route('logout')}}" method="POST">
@@ -248,7 +279,10 @@
                                 </form>
 
                             </div>
+
                         </li>
+
+
 
                     </ul>
 
@@ -301,7 +335,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="login.html">{{__('admin.logout')}}</a>
                 </div>
             </div>
         </div>
@@ -318,6 +352,8 @@
     <script src=" {{ asset('adminassets/js/sb-admin-2.min.js') }} "></script>
 
     @yield('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

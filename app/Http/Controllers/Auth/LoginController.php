@@ -61,7 +61,7 @@ class LoginController extends Controller
         }
 
         if($type == 'phone'){
-            request()->request->remove('email');
+            // request()->request->remove('email');
         }
 
         request()->request->add([ $type=>$input ]);
