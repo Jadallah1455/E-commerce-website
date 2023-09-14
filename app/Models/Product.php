@@ -10,7 +10,11 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name_en','name_ar','image'];
+
+
+    // protected $fillable = ['name_en','name_ar','image','price','sale_price','quantity'];  هنا بتعطيع كل الحقول الي بدك اياها تروح على قاعدة البيانات
+
+    protected $guarded =[]; // اما هادا الامر بكتب داخل المصفوفة مين هيا الحقول الي بدك تمنعها تروح على قاعدة البيانات
 
     public function category()
     {

@@ -12,6 +12,9 @@ return [
     'customers' =>'الزبائن',
     'logout' =>'تسجيل خروج',
     'languages' =>'اللغات',
+    'arabic_name' =>'الإسم بالعربي',
+    'english_name' =>'الإسم بالإنجليزي',
+    'image' =>'الصورة',
 ];
 
 

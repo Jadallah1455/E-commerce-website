@@ -12,6 +12,9 @@ return [
     'customers' =>'Customers',
     'logout' =>'Logout',
     'languages' =>'Languages',
+    'arabic_name' =>'Arabic Name',
+    'english_name' =>'English Name',
+    'image' =>'Image',
 ];
 
 

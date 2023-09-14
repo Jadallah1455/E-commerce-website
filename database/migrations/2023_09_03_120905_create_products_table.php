@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('content_en');
             $table->text('content_ar');
             $table->double('price');
-            $table->double('sale-price');
+            $table->double('sale_price');
             $table->integer('quantity');
             $table->foreignId('category_id');
             $table->timestamps();

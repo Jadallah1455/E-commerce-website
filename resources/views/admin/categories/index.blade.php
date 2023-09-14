@@ -2,13 +2,49 @@
 
 @section('title' , 'Categories | ' .env('APP_NAME') )
 
+
+{{-- jad --}}
+@section('styles')
+
+    @if(app()->currentLocale() == 'ar')
+
+        <style>
+            body {
+                direction: rtl;
+                text-align: right;
+            }
+
+            .sidebar{
+
+                padding: 0
+            }
+
+            .sidebar .nav-item .nav-link{
+
+                text-align: right
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
+                float: left;
+                transform: rotate(180deg)
+            }
+
+            .ml-auto, .mx-auto {
+            margin-left: 0!important;
+            margin-right: auto!important;
+            }
+        </style>
+    @endif
+
+@endsection
+
 @section('content')
 
   <!-- Page Heading -->
 
     <div class="d-flex justify-content-between mb-3 align-items-center">
-        <h1>ALL Categories</h1>
-        <a class="btn btn-primary px-5" href="{{route('admin.categories.create')}}"> <i class="fas fa-plus"></i> Add New Category </a>
+        <h1>{{__('category.all_categories')}}</h1>
+        <a class="btn btn-primary px-5" href="{{route('admin.categories.create')}}"> <i class="fas fa-plus"></i> {{__('category.add_new_category')}} </a>
     </div>
 
     @if (session('msg'))
@@ -21,8 +57,8 @@
     {{--  البحث الرابط بكون نفس رابط الصفحة والميثود بتكون نفس ميثود الصفحة --}}
     <form action="{{route('admin.categories.index')}}" method="GET">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="search" placeholder="Search About Anything ..." value="{{ request()->search}}" >
-            <button class="btn btn-success px-5 " type="submit" id="button-addon2"> <i class="fas fa-search"></i> Button</button>
+            <input type="text" class="form-control" name="search" placeholder="{{__('category.search_about')}}" value="{{ request()->search}}" >
+            <button class="btn btn-success px-5 " type="submit" id="button-addon2"> <i class="fas fa-search"></i> {{__('category.search')}} </button>
           </div>
     </form>
 
